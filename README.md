@@ -1,15 +1,13 @@
-# TypeORM fixtures cli
+# Prisma fixtures cli
 
-[![CircleCI](https://circleci.com/gh/RobinCK/typeorm-fixtures.svg?style=svg)](https://circleci.com/gh/RobinCK/typeorm-fixtures)
-![GitHub CI](https://github.com/RobinCK/typeorm-fixtures/workflows/Build%20CI/badge.svg?branch=master)
-[![OpenCollective](https://opencollective.com/typeorm-fixtures/all/badge.svg?label=financial+contributors)](https://opencollective.com/typeorm-fixtures)
-[![Coverage Status](https://coveralls.io/repos/github/RobinCK/typeorm-fixtures/badge.svg?branch=master&service=github&random=1)](https://coveralls.io/github/RobinCK/typeorm-fixtures?branch=master)
-[![Version](https://img.shields.io/npm/v/typeorm-fixtures-cli.svg?style=flat-square)](https://www.npmjs.com/package/typeorm-fixtures-cli)
-[![License](https://img.shields.io/npm/l/typeorm-fixtures-cli.svg?style=flat-square)](https://github.com/RobinCK/typeorm-fixtures/blob/master/LICENSE)
-[![Backers on Open Collective](https://opencollective.com/typeorm-fixtures/backers/badge.svg)](#backers)
-[![Sponsors on Open Collective](https://opencollective.com/typeorm-fixtures/sponsors/badge.svg)](#sponsors)
+[![CircleCI](https://circleci.com/gh/getbigger-io/prisma-fixtures.svg?style=svg)](https://circleci.com/gh/getbigger-io/prisma-fixtures)
+![GitHub CI](https://github.com/getbigger-io/prisma-fixtures/workflows/Build%20CI/badge.svg?branch=master)
+[![OpenCollective](https://opencollective.com/prisma-fixtures/all/badge.svg?label=financial+contributors)](https://opencollective.com/prisma-fixtures)
+[![Coverage Status](https://coveralls.io/repos/github/getbigger-io/prisma-fixtures/badge.svg?branch=master&service=github&random=1)](https://coveralls.io/github/getbigger-io/prisma-fixtures?branch=master)
+[![Version](https://img.shields.io/npm/v/prisma-fixtures-cli.svg?style=flat-square)](https://www.npmjs.com/package/prisma-fixtures-cli)
+[![License](https://img.shields.io/npm/l/prisma-fixtures-cli.svg?style=flat-square)](https://github.com/getbigger-io/prisma-fixtures/blob/master/LICENSE)
 
-Relying on [faker.js](https://github.com/marak/Faker.js/), typeorm-fixtures-cli allows you to create a ton of fixtures/fake data for use while developing or testing your project. It gives you a few essential tools to make it very easy to generate complex data with constraints in a readable and easy to edit way, so that everyone on your team can tweak the fixtures if needed.
+Relying on [faker.js](https://github.com/marak/Faker.js/), prisma-fixtures-cli allows you to create a ton of fixtures/fake data for use while developing or testing your project. It gives you a few essential tools to make it very easy to generate complex data with constraints in a readable and easy to edit way, so that everyone on your team can tweak the fixtures if needed.
 
 ## Table of Contents
 
@@ -35,13 +33,13 @@ Relying on [faker.js](https://github.com/marak/Faker.js/), typeorm-fixtures-cli 
 #### NPM
 
 ```bash
-npm install typeorm-fixtures-cli --save-dev
+npm install prisma-fixtures-cli --save-dev
 ```
 
 #### Yarn
 
 ```bash
-yarn add typeorm-fixtures-cli --dev
+yarn add prisma-fixtures-cli --dev
 ```
 
 ## Development Setup
@@ -59,7 +57,7 @@ npm run build
 `fixtures/Comment.yml`
 
 ```yaml
-entity: Comment
+entity: comment
 items:
   comment{1..10}:
     fullName: '{{name.firstName}} {{name.lastName}}'
@@ -68,10 +66,14 @@ items:
     post: '@post*'
 ```
 
+**Note**: Your entity must be named the same as you call it in the prisma client e.g: `client.<entityname>.create`...
+
+
 `fixtures/Post.yml`
 
 ```yaml
-entity: Post
+entity: post
+connectedFields: ['user'] # Use this to connect the user when creating the post
 items:
   post1:
     title: '{{name.title}}'
@@ -87,29 +89,24 @@ items:
 
 ```yaml
 entity: User
+connectedFields: ['profile'] # Use this to connect the user when creating the post
 items:
   user1:
     firstName: '{{name.firstName}}'
     lastName: '{{name.lastName}}'
     email: '{{internet.email}}'
     profile: '@profile1'
-    __call:
-      setPassword:
-        - foo
   user2:
     firstName: '{{name.firstName}}'
     lastName: '{{name.lastName}}'
     email: '{{internet.email}}'
     profile: '@profile2'
-    __call:
-      setPassword:
-        - foo
 ```
 
 `fixtures/Profile.yml`
 
 ```yaml
-entity: Profile
+entity: profile
 items:
   profile1:
     aboutMe: <%= ['about string', 'about string 2', 'about string 3'].join(", ") %>
@@ -126,7 +123,7 @@ items:
 The most basic functionality of this library is to turn flat yaml files into objects
 
 ```yaml
-entity: User
+entity: user
 items:
   user0:
     username: bob
@@ -150,7 +147,7 @@ The first step is to let create many copies of an object for you to remove dupli
 You can do that by defining a range in the fixture name:
 
 ```yaml
-entity: User
+entity: user
 items:
   user{1..10}:
     username: bob
@@ -167,7 +164,8 @@ Now it will generate ten users, with IDs user1 to user10. Pretty good but we onl
 You can also specify a reference to a previously created list of fixtures:
 
 ```yaml
-entity: Post
+entity: post
+connectedFields: ['user'] # Use this to connect the user when creating the post
 items:
   post1:
     title: 'Post title'
@@ -180,7 +178,8 @@ items:
 You can also specify a list of values instead of a range:
 
 ```yaml
-entity: Post
+entity: post
+connectedFields: ['user']
 items:
   post{1..10}:
     title: 'Post title'
@@ -193,7 +192,7 @@ In the case of a range (e.g. user{1..10}), `($current)` will return 1 for user1,
 The current iteration can be used as a string value:
 
 ```yaml
-entity: Post
+entity: post
 items:
   post{1..10}:
     title: 'Post($current)'
@@ -205,7 +204,7 @@ items:
 You can mutate this output by using basic math operators:
 
 ```yaml
-entity: Post
+entity: post
 items:
   post{1..10}:
     title: 'Post($current*100)'
@@ -219,7 +218,7 @@ items:
 Sometimes though you need to call a method to initialize some more data, you can do this just like with properties but instead using the method name and giving it an array of arguments.
 
 ```yaml
-entity: User
+entity: user
 items:
   user{1..10}:
     username: bob
@@ -227,20 +226,18 @@ items:
     birthDate: 1980-10-10
     email: bob@example.org
     favoriteNumber: 42
-    __call:
-      setPassword:
-        - foo
 ```
 
 ## Handling Relations
 
 ```yaml
-entity: User
+entity: user
 items:
   user1:
     # ...
 
-entity: Group
+entity: group
+connectedFields: ['owner', 'members']
 items:
   group1:
     name: '<{names.admin}>'
@@ -254,12 +251,13 @@ items:
 If you want to create ten users and ten groups and have each user own one group, you can use `($current)` which is replaced with the current ID of each iteration when using fixture ranges:
 
 ```yaml
-entity: User
+entity: user
 items:
   user1:
     # ...
 
-entity: Group
+entity: group
+connectedFields: ['owner', 'members']
 items:
   group{1..10}:
     name: 'name'
@@ -273,12 +271,13 @@ items:
 If you would like a random user instead of a fixed one, you can define a reference with a wildcard:
 
 ```yaml
-entity: User
+entity: user
 items:
   user1:
     # ...
 
-entity: Group
+entity: group
+connectedFields: ['owner', 'members']
 items:
   group{1..10}:
     name: 'name'
@@ -292,12 +291,13 @@ items:
 or
 
 ```yaml
-entity: User
+entity: user
 items:
   user1:
     # ...
 
-entity: Group
+entity: group
+connectedFields: ['owner', 'members']
 items:
   group{1..10}:
     name: 'name'
@@ -315,7 +315,8 @@ items:
 You can set global parameters that will be inserted everywhere those values are used to help with readability. For example:
 
 ```yaml
-entity: Group
+entity: group
+connectedFields: ['owner', 'members']
 parameters:
   names:
     admin: Admin
@@ -335,7 +336,7 @@ This library integrates with the [faker.js](https://github.com/marak/Faker.js/) 
 Let's turn our static bob user into a randomized entry:
 
 ```yaml
-entity: User
+entity: user
 items:
   user{1..10}:
     username: '{{internet.userName}}'
@@ -343,9 +344,6 @@ items:
     birthDate: '{{date.past}}'
     email: '{{internet.email}}'
     favoriteNumber: '{{random.number}}'
-    __call:
-      setPassword:
-        - foo
 ```
 
 ### EJS templating
@@ -366,7 +364,7 @@ items:
 Processors allow you to process objects before and/or after they are persisted. Processors must implement the: `IProcessor`
 
 ```typescript
-import { IProcessor } from 'typeorm-fixtures-cli';
+import { IProcessor } from 'prisma-fixtures-cli';
 ```
 
 Here is an example:
@@ -374,16 +372,12 @@ Here is an example:
 `processor/UserProcessor.ts`
 
 ```typescript
-import { IProcessor } from 'typeorm-fixtures-cli';
-import { User } from '../entity/User';
+import { IProcessor } from 'prisma-fixtures-cli';
+import { User } from '@prisma/client';
 
 export default class UserProcessor implements IProcessor<User> {
   preProcess(name: string, object: any): any {
     return { ...object, firstName: 'foo' };
-  }
-
-  postProcess(name: string, object: { [key: string]: any }): void {
-    object.name = `${object.firstName} ${object.lastName}`;
   }
 }
 ```
@@ -391,7 +385,7 @@ export default class UserProcessor implements IProcessor<User> {
 fixture config `fixtures/user.yml`
 
 ```yaml
-entity: User
+entity: user
 processor: ../processor/UserProcessor
 items:
   user1:
@@ -407,11 +401,9 @@ Usage: fixtures [options] <path> Fixtures folder/file path
 
 Options:
   -v, --version              output the version number
-  -c, --config <path>        TypeORM config path (default: "ormconfig.yml")
   --require                  A list of additional modules. e.g. ts-node/register
-  -cn, --connection [value]  TypeORM connection name (default: "default")
-  -s --sync                  Database schema sync
   -d --debug                 Enable debug
+  --databaseUrl              Overrides the DATABASE_URL env variable
   -h, --help                 output usage information
   --no-color                 Disable color
 ```
@@ -422,27 +414,26 @@ If you're using multiple modules at once (e.g. ts-node and tsconfig-paths)
 you have the ability to require these modules with multiple require flags. For example:
 
 ```
-fixtures ./fixtures --config ./typeorm.config.ts --sync --require=ts-node/register --require=tsconfig-paths/register
+fixtures ./fixtures --require=ts-node/register --require=tsconfig-paths/register --databaseUrl=file:./mydb.sqlite
 ```
 
 ### Programmatically loading fixtures
 
-Although typeorm-fixtures-cli is intended to use as a CLI, you can still load
+Although prisma-fixtures-cli is intended to use as a CLI, you can still load
 fixtures via APIs in your program.
 
 For example, the below code snippet will load all fixtures exist in `./fixtures` directory:
 
 ```typescript
 import * as path from 'path';
-import { Builder, fixturesIterator, Loader, Parser, Resolver } from 'typeorm-fixtures-cli/dist';
-import { createConnection, getRepository } from 'typeorm';
+import { Builder, fixturesIterator, Loader, Parser, Resolver } from 'prisma-fixtures-cli';
 
 const loadFixtures = async (fixturesPath: string) => {
   let connection;
 
   try {
-    connection = await createConnection();
-    await connection.synchronize(true);
+    connection = await PrismaClient();
+    await connection.$connect();
 
     const loader = new Loader();
     loader.load(path.resolve(fixturesPath));
@@ -453,13 +444,13 @@ const loadFixtures = async (fixturesPath: string) => {
 
     for (const fixture of fixturesIterator(fixtures)) {
       const entity = await builder.build(fixture);
-      await getRepository(entity.constructor.name).save(entity);
+      // use the entity if you need it
     }
   } catch (err) {
     throw err;
   } finally {
     if (connection) {
-      await connection.close();
+      await connection.$disconnect();
     }
   }
 };
@@ -473,36 +464,13 @@ loadFixtures('./fixtures')
 
 ## Samples
 
-- [typeorm-fixtures-sample](https://github.com/RobinCK/typeorm-fixtures-sample)
+- [prisma-fixtures-sample](https://github.com/getbigger-io/prisma-fixtures-sample)
 
 ## Contributors
 
 ### Code Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-<a href="https://github.com/RobinCK/typeorm-fixtures/graphs/contributors"><img src="https://opencollective.com/typeorm-fixtures/contributors.svg?width=890&button=false" /></a>
+<a href="https://github.com/getbigger-io/prisma-fixtures/graphs/contributors"><img src="https://opencollective.com/prisma-fixtures/contributors.svg?width=890&button=false" /></a>
 
-### Financial Contributors
-
-Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/typeorm-fixtures/contribute)]
-
-#### Individuals
-
-<a href="https://opencollective.com/typeorm-fixtures"><img src="https://opencollective.com/typeorm-fixtures/individuals.svg?width=890"></a>
-
-#### Organizations
-
-Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/typeorm-fixtures/contribute)]
-
-<a href="https://opencollective.com/typeorm-fixtures/organization/0/website"><img src="https://opencollective.com/typeorm-fixtures/organization/0/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm-fixtures/organization/1/website"><img src="https://opencollective.com/typeorm-fixtures/organization/1/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm-fixtures/organization/2/website"><img src="https://opencollective.com/typeorm-fixtures/organization/2/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm-fixtures/organization/3/website"><img src="https://opencollective.com/typeorm-fixtures/organization/3/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm-fixtures/organization/4/website"><img src="https://opencollective.com/typeorm-fixtures/organization/4/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm-fixtures/organization/5/website"><img src="https://opencollective.com/typeorm-fixtures/organization/5/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm-fixtures/organization/6/website"><img src="https://opencollective.com/typeorm-fixtures/organization/6/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm-fixtures/organization/7/website"><img src="https://opencollective.com/typeorm-fixtures/organization/7/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm-fixtures/organization/8/website"><img src="https://opencollective.com/typeorm-fixtures/organization/8/avatar.svg"></a>
-<a href="https://opencollective.com/typeorm-fixtures/organization/9/website"><img src="https://opencollective.com/typeorm-fixtures/organization/9/avatar.svg"></a>
-
-MIT © [Igor Ognichenko](https://github.com/RobinCK)
+MIT © [Nicolas MACHEREY](https://github.com/getbigger-io)
