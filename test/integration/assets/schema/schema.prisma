@@ -1,0 +1,50 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./test.db"
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Profile {
+      id                  Int           @id @default(autoincrement())
+      aboutMe             String
+      skype               String
+      language            String
+}
+
+
+model Post {
+    id                  Int           @id @default(autoincrement())
+    title               String
+    description         String
+    user                User
+}
+
+model Comment {
+    id                  Int           @id @default(autoincrement())
+    fullName            String
+    email               String
+    text                String
+    post                Post
+}
+
+model Group {
+    id                  Int           @id @default(autoincrement())
+    name                String
+    owner               User          @relation(fields: [ownerId], references: [id])
+    ownerId             Int
+    members             User[]        @relation("GroupMember")
+}
+
+model User {
+    id                  Int           @id @default(autoincrement())
+    firstName           String
+    lastName            String
+    name                String?
+    password            String
+    email               String
+    profile             Profile
+    groups              Group[]       @relation("GroupMember")
+}

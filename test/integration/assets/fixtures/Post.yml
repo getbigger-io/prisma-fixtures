@@ -1,0 +1,21 @@
+entity: post
+locale: 'pl'
+parameters: {}
+connectedFields: ['user']
+items:
+  post1:
+    title: '{{name.title}}'
+    description: '{{lorem.paragraphs}}'
+    user: '@user($current)'
+  post2:
+    title: '{{name.title}}'
+    description: '{{lorem.paragraphs}}'
+    user: '@user($current)'
+  post3:
+    title: '{{name.title}}'
+    description: '{{lorem.paragraphs}}'
+    user: '@user{3..4}'
+  post4:
+    title: '{{name.title}}'
+    description: '{{lorem.paragraphs}}'
+    user: '@user($current)'

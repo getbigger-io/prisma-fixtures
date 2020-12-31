@@ -1,0 +1,30 @@
+entity: user
+locale: 'pl'
+parameters: {}
+processor: ../processor/UserProcessor
+connectedFields: ['profile']
+items:
+  user1:
+    firstName: '{{name.firstName}}'
+    lastName: '{{name.lastName}}'
+    email: '{{internet.email}}'
+    profile: '@profile1'
+    password: '{{internet.password}}'
+  user2:
+    firstName: '{{name.firstName}}'
+    lastName: '{{name.lastName}}'
+    email: '{{internet.email}}'
+    profile: '@profile2'
+    password: '{{internet.password}}'
+  user3:
+    firstName: '{{name.firstName}}'
+    lastName: '{{name.lastName}}'
+    email: '{{internet.email}}'
+    profile: '@profile3'
+    password: '{{internet.password}}'
+  user4:
+    firstName: '{{name.firstName}}'
+    lastName: '{{name.lastName}}'
+    email: '{{internet.email}}'
+    profile: '@profile4'
+    password: '{{internet.password}}'

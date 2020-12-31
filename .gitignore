@@ -1,0 +1,23 @@
+# Use yarn.lock instead
+package-lock.json
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+lib-cov
+
+coverage
+mochawesome-report
+node_modules
+dist
+.nyc_output
+.npm
+
+src/**.js
+.idea/*
+.vscode/*
+*.iml
+/test/integration/assets/schema/test.db
+/test/integration/assets/schema/migrations/
