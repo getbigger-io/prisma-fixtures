@@ -21,5 +21,6 @@ jobs:
 
       - run: yarn lint
       - run: yarn build
+      - run: yarn prisma generate --schema=./test/integration/assets/schema/schema.prisma
       - run: yarn test
       - run: yarn coveralls
