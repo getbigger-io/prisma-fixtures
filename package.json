@@ -25,7 +25,7 @@
     "typescript",
     "faker",
     "fixture-loader",
-    "typeorm-fixtures"
+    "prisma-fixtures"
   ],
   "repository": {
     "type": "git",
