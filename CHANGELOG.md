@@ -1,3 +1,12 @@
+## [1.0.6](https://github.com/getbigger-io/prisma-fixtures/compare/v1.0.5...v1.0.6) (2021-01-01)
+
+
+### Bug Fixes
+
+* **src/schema/jfixturesschema.ts:** trying to fix invalid joi schema ([ddb2b3e](https://github.com/getbigger-io/prisma-fixtures/commit/ddb2b3e43d72f8fb7dcfed06e209ddcb6d719208))
+
+
+
 ## [1.0.5](https://github.com/getbigger-io/prisma-fixtures/compare/v1.0.4...v1.0.5) (2021-01-01)
 
 
