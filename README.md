@@ -215,21 +215,6 @@ items:
 
 `Post($current*100)` will return Post100 for post1, Post200 for post2 etc.
 
-### Calling Sync and Async Methods
-
-Sometimes though you need to call a method to initialize some more data, you can do this just like with properties but instead using the method name and giving it an array of arguments.
-
-```yaml
-entity: user
-items:
-  user{1..10}:
-    username: bob
-    fullname: Bob
-    birthDate: 1980-10-10
-    email: bob@example.org
-    favoriteNumber: 42
-```
-
 ## Handling Relations
 
 ```yaml
@@ -473,6 +458,5 @@ loadFixtures('./fixtures')
 ### Code Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-<a href="https://github.com/getbigger-io/prisma-fixtures/graphs/contributors"><img src="https://opencollective.com/prisma-fixtures/contributors.svg?width=890&button=false" /></a>
 
 MIT © [Nicolas MACHEREY](https://github.com/getbigger-io)
