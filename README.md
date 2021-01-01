@@ -1,13 +1,15 @@
 # Prisma fixtures cli
 
 [![CircleCI](https://circleci.com/gh/getbigger-io/prisma-fixtures.svg?style=svg)](https://circleci.com/gh/getbigger-io/prisma-fixtures)
-![GitHub CI](https://github.com/getbigger-io/prisma-fixtures/workflows/Build%20CI/badge.svg?branch=master)
-[![OpenCollective](https://opencollective.com/prisma-fixtures/all/badge.svg?label=financial+contributors)](https://opencollective.com/prisma-fixtures)
-[![Coverage Status](https://coveralls.io/repos/github/getbigger-io/prisma-fixtures/badge.svg?branch=master&service=github&random=1)](https://coveralls.io/github/getbigger-io/prisma-fixtures?branch=master)
 [![Version](https://img.shields.io/npm/v/prisma-fixtures-cli.svg?style=flat-square)](https://www.npmjs.com/package/prisma-fixtures-cli)
 [![License](https://img.shields.io/npm/l/prisma-fixtures-cli.svg?style=flat-square)](https://github.com/getbigger-io/prisma-fixtures/blob/master/LICENSE)
 
-Relying on [faker.js](https://github.com/marak/Faker.js/), prisma-fixtures-cli allows you to create a ton of fixtures/fake data for use while developing or testing your project. It gives you a few essential tools to make it very easy to generate complex data with constraints in a readable and easy to edit way, so that everyone on your team can tweak the fixtures if needed.
+Relying on [faker.js](https://github.com/marak/Faker.js/), prisma-fixtures-cli allows you to create a ton of fixtures/fake data for use while developing 
+or testing your project. It gives you a few essential tools to make it very easy to generate complex data with constraints in a readable and easy to edit 
+way, so that everyone on your team can tweak the fixtures if needed.
+
+This package has been adapted from [TypeORM Fixtures CLI](https://github.com/RobinCK/typeorm-fixtures) thanks to its
+author [RobinCK](https://github.com/RobinCK).
 
 ## Table of Contents
 
