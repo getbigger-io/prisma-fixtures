@@ -20,7 +20,6 @@ author [RobinCK](https://github.com/RobinCK).
   - [Fixture Ranges](#fixture-ranges)
   - [Fixture Reference](#fixture-reference)
   - [Fixture Lists](#fixture-lists)
-  - [Calling Methods](#calling-methods)
 - [Handling Relations](#handling-relations)
 - [Advanced Guide](#advanced-guide)
   - [Parameters](#parameters)
