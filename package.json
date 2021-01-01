@@ -1,6 +1,6 @@
 {
   "name": "@getbigger-io/prisma-fixtures-cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Prisma2 Fixtures Loader (adapted from typeorm-fixtures-cli)",
   "main": "dist/index.js",
   "bin": {
