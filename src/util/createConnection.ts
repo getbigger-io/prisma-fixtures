@@ -1,8 +1,8 @@
-import {PrismaClient} from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 export async function createConnection(databaseUrl?: string): Promise<PrismaClient> {
     const client = new PrismaClient({
-        datasources: databaseUrl ? {db: {url: databaseUrl}} : undefined,
+        datasources: databaseUrl ? { db: { url: databaseUrl } } : undefined,
     });
     await client.$connect();
 
