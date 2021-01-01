@@ -35,13 +35,13 @@ author [RobinCK](https://github.com/RobinCK).
 #### NPM
 
 ```bash
-npm install prisma-fixtures-cli --save-dev
+npm install @getbigger-io/prisma-fixtures-cli --save-dev
 ```
 
 #### Yarn
 
 ```bash
-yarn add prisma-fixtures-cli --dev
+yarn add @getbigger-io/prisma-fixtures-cli --dev
 ```
 
 ## Development Setup
@@ -366,7 +366,7 @@ items:
 Processors allow you to process objects before and/or after they are persisted. Processors must implement the: `IProcessor`
 
 ```typescript
-import { IProcessor } from 'prisma-fixtures-cli';
+import { IProcessor } from '@getbigger-io/prisma-fixtures-cli';
 ```
 
 Here is an example:
@@ -374,7 +374,7 @@ Here is an example:
 `processor/UserProcessor.ts`
 
 ```typescript
-import { IProcessor } from 'prisma-fixtures-cli';
+import { IProcessor } from '@getbigger-io/prisma-fixtures-cli';
 import { User } from '@prisma/client';
 
 export default class UserProcessor implements IProcessor<User> {
@@ -421,14 +421,14 @@ fixtures ./fixtures --require=ts-node/register --require=tsconfig-paths/register
 
 ### Programmatically loading fixtures
 
-Although prisma-fixtures-cli is intended to use as a CLI, you can still load
+Although @getbigger-io/prisma-fixtures-cli is intended to use as a CLI, you can still load
 fixtures via APIs in your program.
 
 For example, the below code snippet will load all fixtures exist in `./fixtures` directory:
 
 ```typescript
 import * as path from 'path';
-import { Builder, fixturesIterator, Loader, Parser, Resolver } from 'prisma-fixtures-cli';
+import { Builder, fixturesIterator, Loader, Parser, Resolver } from '@getbigger-io/prisma-fixtures-cli';
 
 const loadFixtures = async (fixturesPath: string) => {
   let connection;
