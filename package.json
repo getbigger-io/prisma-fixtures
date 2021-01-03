@@ -15,7 +15,8 @@
     "test": "nyc mocha",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "commit": "npx git-cz"
+    "commit": "npx git-cz",
+    "publish:package": "yarn build && yarn version && npm publish"
   },
   "keywords": [
     "prisma",
