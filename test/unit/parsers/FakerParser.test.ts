@@ -37,6 +37,14 @@ describe('Faker parser', () => {
         assert.isString(result);
     });
 
+    it('should be date', () => {
+        const parser = new FakerParser();
+        const result = parser.parse('{{date.past}}');
+
+        assert.isNotNull(result);
+        assert.isNumber(result.getTime());
+    });
+
     it('should be translated string', () => {
         const parser = new FakerParser();
         const result = parser.parse('{{random.word}}', {
