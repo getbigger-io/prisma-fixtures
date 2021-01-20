@@ -1,3 +1,12 @@
+## [1.0.8](https://github.com/getbigger-io/prisma-fixtures/compare/v1.0.7...v1.0.8) (2021-01-20)
+
+
+### Bug Fixes
+
+* **fakerparser.js:** fix faker method returning string ([88975af](https://github.com/getbigger-io/prisma-fixtures/commit/88975afd6b5547849bacbd0cfaa0647151b6b4bf))
+
+
+
 ## [1.0.7](https://github.com/getbigger-io/prisma-fixtures/compare/v1.0.6...v1.0.7) (2021-01-01)
 
 
