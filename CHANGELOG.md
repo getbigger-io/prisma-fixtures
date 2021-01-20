@@ -1,3 +1,7 @@
+## [1.0.9](https://github.com/getbigger-io/prisma-fixtures/compare/v1.0.8...v1.0.9) (2021-01-20)
+
+
+
 ## [1.0.8](https://github.com/getbigger-io/prisma-fixtures/compare/v1.0.7...v1.0.8) (2021-01-20)
 
 
