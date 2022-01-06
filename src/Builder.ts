@@ -41,6 +41,10 @@ export class Builder {
 
         if (fixture.connectedFields && Array.isArray(fixture.connectedFields)) {
             fixture.connectedFields.forEach((propertyName) => {
+                if (!data[propertyName]) {
+                    return; // case the connected field is not present
+                }
+
                 const connexions = data[propertyName] instanceof Array ?
                     data[propertyName].map((p: { id: any; }) => ({id: p.id})) : {id: data[propertyName].id};
 

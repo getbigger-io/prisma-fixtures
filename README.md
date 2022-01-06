@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/npm/l/prisma-fixtures-cli.svg?style=flat-square)](https://github.com/getbigger-io/prisma-fixtures/blob/master/LICENSE)
 
 Relying on [faker.js](https://github.com/marak/Faker.js/), prisma-fixtures-cli allows you to create a ton of fixtures/fake data for use while developing 
-or testing your project. It gives you a few essential tools to make it very easy to generate complex data with constraints in a readable and easy to edit 
+or testing your project. It gives you a few essential tools to make it very easy to collect complex data with constraints in a readable and easy to edit 
 way, so that everyone on your team can tweak the fixtures if needed.
 
 This package has been adapted from [TypeORM Fixtures CLI](https://github.com/RobinCK/typeorm-fixtures) thanks to its
@@ -158,7 +158,7 @@ items:
     favoriteNumber: 42
 ```
 
-Now it will generate ten users, with IDs user1 to user10. Pretty good but we only have 10 bobs with the same name, username and email, which is not so fancy yet.
+Now it will collect ten users, with IDs user1 to user10. Pretty good but we only have 10 bobs with the same name, username and email, which is not so fancy yet.
 
 ### Fixture Reference
 
@@ -317,7 +317,7 @@ items:
 
 ### Faker Data
 
-This library integrates with the [faker.js](https://github.com/marak/Faker.js/) library. Using {{foo}} you can call Faker data providers to generate random data.
+This library integrates with the [faker.js](https://github.com/marak/Faker.js/) library. Using {{foo}} you can call Faker data providers to collect random data.
 
 Let's turn our static bob user into a randomized entry:
 
