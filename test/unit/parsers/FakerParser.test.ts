@@ -18,14 +18,14 @@ describe('Faker parser', () => {
 
     it('should be number', () => {
         const parser = new FakerParser();
-        const result = parser.parse('{{random.number}}');
+        const result = parser.parse('{{datatype.number}}');
 
         assert.isNumber(result);
     });
 
     it('should be boolean', () => {
         const parser = new FakerParser();
-        const result = parser.parse('{{random.boolean}}');
+        const result = parser.parse('{{datatype.boolean}}');
 
         assert.isBoolean(result);
     });
