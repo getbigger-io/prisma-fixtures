@@ -1,6 +1,6 @@
-import * as faker from 'faker';
-import {IFixture, IParser} from '../interface';
-import {split} from 'ts-node';
+import { faker } from '@faker-js/faker';
+import { IFixture, IParser } from '../interface';
+import { split } from 'ts-node';
 
 export class FakerParser implements IParser {
     /**
@@ -91,7 +91,7 @@ export class FakerParser implements IParser {
         // Note: we experience a small performance hit here due to JSON.parse try / catch
         // If anyone actually needs to optimize this specific code path, please open a support issue on github
         try {
-            params = JSON.parse(parameters)
+            params = JSON.parse(parameters);
         } catch (err) {
             // since JSON.parse threw an error, assume parameters was actually a string
             params = parameters;
@@ -114,5 +114,5 @@ export class FakerParser implements IParser {
 
         // return the response recursively until we are done finding all tags
         return this.fake(res);
-    }
+    };
 }
