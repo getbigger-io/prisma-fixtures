@@ -4,47 +4,53 @@ datasource db {
 }
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 model Profile {
-      id                  Int           @id @default(autoincrement())
-      aboutMe             String
-      skype               String
-      language            String
+  id       Int    @id @default(autoincrement())
+  aboutMe  String
+  skype    String
+  language String
+  User     User[]
 }
 
-
 model Post {
-    id                  Int           @id @default(autoincrement())
-    title               String
-    description         String
-    user                User
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  Comment     Comment[]
 }
 
 model Comment {
-    id                  Int           @id @default(autoincrement())
-    fullName            String
-    email               String
-    text                String
-    post                Post
+  id       Int    @id @default(autoincrement())
+  fullName String
+  email    String
+  text     String
+  post     Post   @relation(fields: [postId], references: [id])
+  postId   Int
 }
 
 model Group {
-    id                  Int           @id @default(autoincrement())
-    name                String
-    owner               User          @relation(fields: [ownerId], references: [id])
-    ownerId             Int
-    members             User[]        @relation("GroupMember")
+  id      Int    @id @default(autoincrement())
+  name    String
+  owner   User   @relation(fields: [ownerId], references: [id])
+  ownerId Int
+  members User[] @relation("GroupMember")
 }
 
 model User {
-    id                  Int           @id @default(autoincrement())
-    firstName           String
-    lastName            String
-    name                String?
-    password            String
-    email               String
-    profile             Profile
-    groups              Group[]       @relation("GroupMember")
+  id        Int     @id @default(autoincrement())
+  firstName String
+  lastName  String
+  name      String?
+  password  String
+  email     String
+  profile   Profile @relation(fields: [profileId], references: [id])
+  groups    Group[] @relation("GroupMember")
+  Post      Post[]
+  Group     Group[]
+  profileId Int
 }

@@ -78,7 +78,7 @@
   "dependencies": {
     "@faker-js/faker": "7.3.0",
     "@hapi/joi": "^17.1.1",
-    "@prisma/client": "^2.13.1",
+    "@prisma/client": "^4.0.0",
     "@types/hapi__joi": "^17.1.0",
     "chai": "^4.2.0",
     "chalk": "^4.0.0",

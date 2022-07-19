@@ -19,7 +19,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: yarn lint
-      - run: yarn build
-      - run: yarn prisma generate --schema=./test/integration/assets/schema/schema.prisma
-      - run: yarn test
+      - run: npm run lint
+      - run: npm run build
+      - run: npx prisma generate --schema=./test/integration/assets/schema/schema.prisma
+      - run: npm test
