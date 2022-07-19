@@ -1,6 +1,5 @@
 import { faker } from '@faker-js/faker';
 import { IFixture, IParser } from '../interface';
-import { split } from 'ts-node';
 
 export class FakerParser implements IParser {
     /**
@@ -13,7 +12,7 @@ export class FakerParser implements IParser {
      * @return {boolean}
      */
     isSupport(value: string): boolean {
-        return /\{\{.+\}\}/gm.test(value);
+        return /\{\{.+}}/gm.test(value);
     }
 
     /**
@@ -114,5 +113,5 @@ export class FakerParser implements IParser {
 
         // return the response recursively until we are done finding all tags
         return this.fake(res);
-    }
+    };
 }
