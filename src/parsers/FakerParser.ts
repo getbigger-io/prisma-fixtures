@@ -114,5 +114,5 @@ export class FakerParser implements IParser {
 
         // return the response recursively until we are done finding all tags
         return this.fake(res);
-    };
+    }
 }
