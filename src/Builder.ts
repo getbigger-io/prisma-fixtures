@@ -1,13 +1,12 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import {IDataParser, IFixture} from './interface';
-import {PrismaClient} from '@prisma/client/scripts/default-index';
+import { IDataParser, IFixture } from './interface';
+import { PrismaClient } from '@prisma/client/scripts/default-index';
 
 export class Builder {
     public entities: any = {};
 
-    constructor(private readonly client: PrismaClient, private readonly parser: IDataParser) {
-    }
+    constructor(private readonly client: PrismaClient, private readonly parser: IDataParser) {}
 
     /**
      * @param {IFixture} fixture
@@ -45,14 +44,27 @@ export class Builder {
                     return; // case the connected field is not present
                 }
 
-                const connexions = data[propertyName] instanceof Array ?
-                    data[propertyName].map((p: { id: any; }) => ({id: p.id})) : {id: data[propertyName].id};
+                const connexions =
+                    data[propertyName] instanceof Array
+                        ? data[propertyName].map((p: { id: any }) => ({ id: p.id }))
+                        : { id: data[propertyName].id };
 
-                data[propertyName] = {connect: connexions};
+                data[propertyName] = { connect: connexions };
             });
         }
 
-        const entity = await this.client[fixture.entity].create({data});
+        let entity = null;
+        if (data.id) {
+            const foundEntity = await this.client[fixture.entity].findUnique({ where: { id: data.id } });
+            if (foundEntity) {
+                entity = await this.client[fixture.entity].update({ where: { id: data.id }, data });
+            } else {
+                entity = await this.client[fixture.entity].create({ data });
+            }
+        } else {
+            entity = await this.client[fixture.entity].create({ data });
+        }
+
         this.entities[fixture.name] = entity;
 
         return entity;

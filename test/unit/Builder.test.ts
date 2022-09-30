@@ -38,6 +38,58 @@ describe('Builder', () => {
         );
     });
 
+    it('should be build entity once if it already exists', async () => {
+        const connection = new MockConnection();
+        const parser = new Parser();
+        const builder = new Builder(connection, parser);
+
+        const result1 = await builder.build({
+            parameters: {},
+            entity: 'user',
+            name: 'user1',
+            processor: undefined,
+            dependencies: [],
+            data: {
+                id: 1,
+                firstName: 'firstName',
+                lastName: 'lastName',
+                email: 'email1',
+            },
+        });
+
+        const result2 = await builder.build({
+            parameters: {},
+            entity: 'user',
+            name: 'user1',
+            processor: undefined,
+            dependencies: [],
+            data: {
+                id: 1,
+                firstName: 'firstName',
+                lastName: 'lastName',
+                email: 'email2',
+            },
+        });
+
+        chai.expect(result1).to.be.deep.equal(
+            Object.assign(new User(), {
+                id: 1,
+                firstName: 'firstName',
+                lastName: 'lastName',
+                email: 'email1',
+            }),
+        );
+
+        chai.expect(result2).to.be.deep.equal(
+            Object.assign(new User(), {
+                id: 1,
+                firstName: 'firstName',
+                lastName: 'lastName',
+                email: 'email2',
+            }),
+        );
+    });
+
     it('should be processed entity', async () => {
         const connection = new MockConnection();
         const parser = new Parser();
